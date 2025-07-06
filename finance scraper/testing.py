@@ -15,7 +15,7 @@ def testing():
 
     rows = soup.select(".datafx .datafx__item") #datafx__item
 
-    
+    pair_data = []
 
     for r in rows:
         title = r.select_one(".datafx__item--title").get_text(strip=True)
@@ -23,4 +23,13 @@ def testing():
         changes = r.select_one(".datafx__item--changes").get_text(strip=True)
         percent = r.select_one(".datafx__item--percent").get_text(strip=True)
 
-        print(f"{title} \n {value} \n Change: {changes} \n Percent: {percent} \n")
+        pair_data.append((dict
+            stock = title,
+            value = value,
+            changes = changes,
+            percent = percent                 
+        ))
+
+        #print(f"{title} \n {value} \n Change: {changes} \n Percent: {percent} \n")
+
+    return pd.DataFrame.from_dict(pair_data)
